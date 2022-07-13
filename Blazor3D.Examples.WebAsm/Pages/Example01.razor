@@ -1,7 +1,21 @@
 ﻿@page "/example01"
 <h3>Example01</h3>
 
-<Viewer @ref="View3D1" ViewerSettings=@settings Scene=scene />
+<div>
+    This example shows how to:
+    <ul>
+        <li>Control the Blazor3D Viewer component's dimensions with CSS</li>
+        <li>Add custom ViewerSettings</li>
+        <li>Add user-defined scene</li>
+        <li>Add user-defined lights and meshes</li>
+    </ul>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-6 v3d">
+        <Viewer @ref="View3D1" ViewerSettings=@settings Scene=scene />
+    </div>
+</div>
 
 @code {
     private Viewer View3D1 = null!;
