@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor3D.Examples.Server", "Blazor3D.Examples.Server\Blazor3D.Examples.Server.csproj", "{1650CC04-FED2-4100-9618-42DDAFF9772C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor3D.Examples.Server", "Blazor3D.Examples.Server\Blazor3D.Examples.Server.csproj", "{1650CC04-FED2-4100-9618-42DDAFF9772C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor3D.Examples.WebAsm", "Blazor3D.Examples.WebAsm\Blazor3D.Examples.WebAsm.csproj", "{0D1430B0-02FF-4951-88C4-8601D2E58912}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor3D.Examples.WebAsm", "Blazor3D.Examples.WebAsm\Blazor3D.Examples.WebAsm.csproj", "{0D1430B0-02FF-4951-88C4-8601D2E58912}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
