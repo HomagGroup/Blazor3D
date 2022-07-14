@@ -1,0 +1,51 @@
+﻿@page "/example02"
+<h3>Example02</h3>
+
+<div>
+    This example shows how to:
+    <ul>
+        <li>Control the Blazor3D Viewer component's dimensions with CSS</li>
+        <li>Add user-defined scene</li>
+        <li>Add user-defined lights</li>
+        <li>Import obj model on button click</li>
+    </ul>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-6 v3d">
+        <Viewer @ref="View3D1" Scene=scene />
+    </div>
+    <div>
+        <button @onclick="OnLoadObjButtonClick">Load OBJ</button>
+    </div>
+
+</div>
+
+@code {
+    private Viewer View3D1 = null!;
+    private Scene scene = new Scene();
+    protected override Task OnInitializedAsync()
+    {
+        scene.Add(new AmbientLight());
+        scene.Add(new PointLight()
+            {
+                Intensity = 1,
+                Position = new Vector3 (100, 200, 100)
+            });
+
+        return base.OnInitializedAsync();
+    }
+
+    private async Task OnLoadObjButtonClick()
+    {
+        //load obj model asynchronously
+        await View3D1.Import3DModelAsync(
+            Import3DFormats.Obj,//choose appropriate format
+            "https://threejs.org/examples/models/obj/male02/male02.obj", // link to your obj file
+            "https://threejs.org/examples/textures/uv_grid_opengl.jpg", // link to the texture or null
+            500);// delay in ms before scene rendering to get things loaded. Default value 200.
+
+        // set camera position to view your loaded model.
+        await View3D1.SetCameraPositionAsync(new Vector3(0, 100, 250));
+    }
+}
