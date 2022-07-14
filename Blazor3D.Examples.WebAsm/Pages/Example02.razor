@@ -4,19 +4,25 @@
 <div>
     This example shows how to:
     <ul>
-        <li>Control the Blazor3D Viewer component's dimensions with CSS</li>
-        <li>Add user-defined scene</li>
-        <li>Add user-defined lights</li>
+        <li>Control the Blazor3D Viewer component's dimensions with CSS and HTML element style</li>
+        <li>Add user-defined scene and lights</li>
         <li>Import obj model on button click</li>
+        <li>Import Collada model on button click</li>
+        <li>Import Fbx model on button click</li>
+        <li>Import Gltf model on button click</li>
     </ul>
 </div>
 
 <div class="row justify-content-center">
-    <div class="col-6 v3d">
+    <div class="col-6" style="height:500px;">
         <Viewer @ref="View3D1" Scene=scene />
     </div>
-    <div>
-        <button @onclick="OnLoadObjButtonClick">Load OBJ</button>
+    <div class="col-6">
+        <p><button class="btn btn-primary" @onclick="OnLoadObjButtonClick">Load OBJ</button> </p>
+        <p><button class="btn btn-primary" @onclick="OnLoadObjNoTexturesButtonClick">Load OBJ w/o texture</button> </p>
+        <p><button class="btn btn-primary" @onclick="OnLoadColladaButtonClick">Load Collada</button> </p>
+        <p><button class="btn btn-primary" @onclick="OnLoadFbxButtonClick">Load Fbx</button> </p>
+        <p><button class="btn btn-primary" @onclick="OnLoadGltfButtonClick">Load Gltf</button> </p>
     </div>
 
 </div>
@@ -29,8 +35,8 @@
         scene.Add(new AmbientLight());
         scene.Add(new PointLight()
             {
-                Intensity = 1,
-                Position = new Vector3 (100, 200, 100)
+                Intensity = 0.5f,
+                Position = new Vector3(100, 200, 100)
             });
 
         return base.OnInitializedAsync();
@@ -45,7 +51,47 @@
             "https://threejs.org/examples/textures/uv_grid_opengl.jpg", // link to the texture or null
             500);// delay in ms before scene rendering to get things loaded. Default value 200.
 
-        // set camera position to view your loaded model.
+        // set camera position to view your loaded model
         await View3D1.SetCameraPositionAsync(new Vector3(0, 100, 250));
+    }
+
+    private async Task OnLoadObjNoTexturesButtonClick()
+    {
+        await View3D1.Import3DModelAsync(
+            Import3DFormats.Obj,
+            "https://threejs.org/examples/models/obj/male02/male02.obj",
+            null,
+            500);
+        await View3D1.SetCameraPositionAsync(new Vector3(0, 100, 250));
+    }
+
+    private async Task OnLoadColladaButtonClick()
+    {
+        await View3D1.Import3DModelAsync(
+            Import3DFormats.Collada,
+            "https://threejs.org/examples/models/collada/elf/elf.dae",
+            null,
+            500);
+        await View3D1.SetCameraPositionAsync(new Vector3(0, 5, 10));
+    }
+
+    private async Task OnLoadFbxButtonClick()
+    {
+        await View3D1.Import3DModelAsync(
+      Import3DFormats.Fbx,
+      "https://threejs.org/examples/models/fbx/Samba%20Dancing.fbx",
+      null,
+      500);
+        await View3D1.SetCameraPositionAsync(new Vector3(0, 100, 250));
+    }
+
+    private async Task OnLoadGltfButtonClick()
+    {
+        await View3D1.Import3DModelAsync(
+        Import3DFormats.Gltf,
+        "https://threejs.org/examples/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf",
+        null,
+        500);
+        await View3D1.SetCameraPositionAsync(new Vector3(0, 1, 5));
     }
 }
