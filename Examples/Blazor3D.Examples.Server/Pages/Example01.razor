@@ -6,7 +6,7 @@
         <li>Control the Blazor3D Viewer component's dimensions with CSS</li>
         <li>Add custom ViewerSettings</li>
         <li>Add user-defined scene</li>
-        <li>Add user-defined lights and meshes</li>
+        <li>Add user-defined lights and meshes with different geometries</li>
     </ul>
 </div>
 
@@ -31,46 +31,144 @@
         scene.Add(new AmbientLight());
         scene.Add(new PointLight()
             {
-                Position = new Vector3
-                {
-                    X = 1,
-                    Y = 3,
-                    Z = 0
-                }
+                Position = new Vector3(1, 3, 0)
             });
         scene.Add(new Mesh());
         scene.Add(new Mesh
             {
-                Geometry = new BoxGeometry
+                Geometry = new BoxGeometry(width: 1.2f, height: 0.5f),
+                Position = new Vector3(-2, 0, 0),
+                Material = new MeshStandardMaterial()
                 {
-                    Width = 2,
-                    Height = 0.5f
-                },
-                Position = new Vector3
-                {
-                    X = -1,
-                    Y = 1,
-                    Z = -1
-                }
-                            ,
-                Rotation = new Euler
-                {
-                    X = (float)(Math.PI / 4)
+                    Color = "magenta"
                 }
             });
 
         scene.Add(new Mesh
             {
-                Geometry = new CircleGeometry(),
-                Position = new Vector3
+                Geometry = new CircleGeometry(radius: 0.75f, segments: 12),
+                Position = new Vector3(2, 0, 0),
+                Scale = new Vector3(1, 0.75f, 1),
+                Material = new MeshStandardMaterial()
                 {
-                    X = 1,
-                    Y = 1,
-                    Z = -1
-                },
-                Scale = new Vector3(0.5f, 1f, 1f)
+                    Color = "pink"
+                }
             });
 
+        scene.Add(new Mesh
+            {
+                Geometry = new CapsuleGeometry(radius: 0.5f, length: 2),
+                Position = new Vector3(-4, 0, 0),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "darkgreen"
+                }
+            });
+
+        scene.Add(new Mesh
+            {
+                Geometry = new ConeGeometry(radius: 0.5f, height: 2, radialSegments: 16),
+                Position = new Vector3(4, 0, 0),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "green"
+                }
+            });
+
+        scene.Add(new Mesh
+            {
+                Geometry = new CylinderGeometry(radiusTop: 0.5f, height: 1.2f, radialSegments: 16),
+                Position = new Vector3(0, 0, -2),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "red"
+                }
+            });
+        scene.Add(new Mesh
+            {
+                Geometry = new DodecahedronGeometry(radius: 0.8f),
+                Position = new Vector3(-2, 0, -2),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "darkviolet"
+                }
+            });
+
+        scene.Add(new Mesh
+            {
+                Geometry = new IcosahedronGeometry(radius: 0.8f),
+                Position = new Vector3(-4, 0, -2),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "violet"
+                }
+            });
+
+        scene.Add(new Mesh
+            {
+
+                Geometry = new OctahedronGeometry(radius: 0.75f),
+                Position = new Vector3(2, 0, -2),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "aqua"
+                }
+            });
+
+        scene.Add(new Mesh
+            {
+                Geometry = new PlaneGeometry(width: 0.5f, height: 2),
+                Position = new Vector3(4, 0, -2),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "purple"
+                }
+            });
+        scene.Add(new Mesh
+            {
+                Geometry = new RingGeometry(innerRadius: 0.6f, outerRadius: 0.7f),
+                Position = new Vector3(0, 0, -4),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "DodgerBlue"
+                }
+            });
+        scene.Add(new Mesh
+            {
+                Geometry = new SphereGeometry(radius: 0.6f),
+                Position = new Vector3(-2, 0, -4),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "darkgreen"
+                },
+            });
+        scene.Add(new Mesh
+            {
+                Geometry = new TetrahedronGeometry(radius: 0.75f),
+                Position = new Vector3(2, 0, -4),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "lightblue"
+                }
+            });
+        scene.Add(new Mesh
+            {
+                Geometry = new TorusGeometry(radius: 0.6f, tube: 0.4f, radialSegments: 12, tubularSegments: 12),
+                Position = new Vector3(4, 0, -4),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "lightgreen"
+                }
+            });
+        scene.Add(new Mesh
+            {
+                Geometry = new TorusKnotGeometry(radius:0.6f, tube: 0.1f),
+                Position = new Vector3(-4, 0, -4),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "RosyBrown"
+                }
+            });
         return base.OnInitializedAsync();
     }
 }
