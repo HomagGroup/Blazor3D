@@ -6,10 +6,7 @@
     <ul>
         <li>Control the Blazor3D Viewer component's dimensions with CSS and HTML element style</li>
         <li>Add user-defined scene and lights</li>
-        <li>Import obj model on button click</li>
-        <li>Import Collada model on button click</li>
-        <li>Import Fbx model on button click</li>
-        <li>Import Gltf model on button click</li>
+        <li>Import obj, Collada, Fbx, Gltf or Stl model on button click</li>
     </ul>
 </div>
 
@@ -23,8 +20,8 @@
         <p><button class="btn btn-primary" @onclick="OnLoadColladaButtonClick">Load Collada</button> </p>
         <p><button class="btn btn-primary" @onclick="OnLoadFbxButtonClick">Load Fbx</button> </p>
         <p><button class="btn btn-primary" @onclick="OnLoadGltfButtonClick">Load Gltf</button> </p>
+        <p><button class="btn btn-primary" @onclick="OnLoadStlButtonClick">Load Stl</button> </p>
     </div>
-
 </div>
 
 @code {
@@ -93,5 +90,13 @@
         null,
         500);
         await View3D1.SetCameraPositionAsync(new Vector3(0, 1, 5));
+    }
+    private async Task OnLoadStlButtonClick()
+    {
+        //todo: set custom material
+        await View3D1.Import3DModelAsync(
+        Import3DFormats.Stl,
+        "https://threejs.org/examples/models/stl/ascii/slotted_disk.stl", null);
+        await View3D1.SetCameraPositionAsync(new Vector3(0, 1, 1));
     }
 }
