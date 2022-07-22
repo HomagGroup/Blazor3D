@@ -1,0 +1,28 @@
+﻿@page "/example03"
+<h3>Example03</h3>
+<div>
+    This example shows how to:
+    <ul>
+        <li>Control the Blazor3D Viewer component's dimensions with CSS</li>
+        <li>Use orthographic camera</li>
+    </ul>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-6" style="height:400px;">
+        <Viewer Camera=camera UseDefaultScene=@true/>
+    </div>
+</div>
+
+
+@code {
+    private Camera camera = new OrthographicCamera(left: -2, right: 2, top: 2, bottom: -2, zoom: 0.5)
+        {
+            Position = new Vector3(3, 3, 3),
+        };
+   
+    protected override Task OnInitializedAsync()
+    {
+        return base.OnInitializedAsync();
+    }
+}
