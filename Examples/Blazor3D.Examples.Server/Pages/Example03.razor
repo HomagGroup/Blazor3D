@@ -1,21 +1,25 @@
 ﻿@page "/example03"
+
 <h3>Example03</h3>
 <div>
     This example shows how to:
     <ul>
         <li>Control the Blazor3D Viewer component's dimensions with CSS</li>
         <li>Use orthographic camera</li>
+        <li>Use helpers</li>
     </ul>
 </div>
 
 <div class="row justify-content-center">
     <div class="col-6" style="height:400px;">
-        <Viewer Camera=camera UseDefaultScene=@true/>
+        <Viewer @ref="View3D1" Camera=camera  Scene=scene />
     </div>
 </div>
 
-
 @code {
+    private Viewer View3D1 = null!;
+    private Scene scene = new Scene();
+
     private Camera camera = new OrthographicCamera(left: -2, right: 2, top: 2, bottom: -2, zoom: 0.5)
         {
             Position = new Vector3(3, 3, 3),
@@ -23,6 +27,52 @@
    
     protected override Task OnInitializedAsync()
     {
+        FillScene();
         return base.OnInitializedAsync();
+    }
+
+    private void FillScene()
+    {
+        scene.Add(new AmbientLight());
+        
+        var capsule = new Mesh
+            {
+                Geometry = new CapsuleGeometry(radius: 1, length: 2),
+                Position = new Vector3(-3, 0, -3),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "blue"
+                }
+            };
+        scene.Add(capsule);
+        scene.Add(new ArrowHelper(new Vector3(1, 1, 1), new Vector3(1, 1, 1), 3, "red", 1, 0.2));
+        scene.Add(new AxesHelper(5));
+
+        // Mesh for box helper must be already added to the scene.
+        scene.Add(new BoxHelper(capsule, "black"));
+
+        scene.Add(new GridHelper(2, 6, "red", "orange")
+            {
+                Position = new Vector3(-2, 0, 0)
+            });
+
+        scene.Add(new PolarGridHelper(radius: 2, radials: 8, circles: 6, divisions: 32, "red", "orange")
+            {
+                Position = new Vector3(2, 0, 0)
+            });
+
+        var plane = new Plane(new Vector3(-1, 1, 1), 3);
+        scene.Add(new PlaneHelper(plane, 2, "green"));
+
+        var plight = new PointLight()
+            {
+                Color = "red",
+                Decay = 2,
+                Position = new Vector3(-1, 2, -1)
+            };
+        scene.Add(plight);
+
+        // Point light must be already added to the scene.
+        scene.Add(new PointLightHelper(plight, 0.5));
     }
 }
