@@ -5,7 +5,7 @@
     This example shows how to:
     <ul>
         <li>Control the Blazor3D Viewer component's dimensions with CSS</li>
-        <li>Use orthographic camera</li>
+        <li>Use animated orthographic camera</li>
         <li>Use helpers</li>
     </ul>
 </div>
@@ -20,9 +20,11 @@
     private Viewer View3D1 = null!;
     private Scene scene = new Scene();
 
-    private Camera camera = new OrthographicCamera(left: -2, right: 2, top: 2, bottom: -2, zoom: 0.5)
+    private Camera camera = new OrthographicCamera(left: -2, right: 2, top: 2, bottom: -2, zoom: 0.5, near:-10)
         {
-            Position = new Vector3(3, 3, 3),
+            Position = new Vector3(1, 1, 1),
+            AnimateRotationSettings = new AnimateRotationSettings(true, 0.1, 0, 0.1, 2),
+            LookAt = new Vector3(0.5f, 0, 0)
         };
    
     protected override Task OnInitializedAsync()

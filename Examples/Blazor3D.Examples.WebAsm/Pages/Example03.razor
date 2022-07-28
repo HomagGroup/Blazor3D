@@ -5,14 +5,14 @@
     This example shows how to:
     <ul>
         <li>Control the Blazor3D Viewer component's dimensions with CSS</li>
-        <li>Use orthographic camera</li>
+        <li>Use animated orthographic camera</li>
         <li>Use helpers</li>
     </ul>
 </div>
 
 <div class="row justify-content-center">
     <div class="col-6" style="height:400px;">
-        <Viewer @ref="View3D1" Camera=camera  Scene=scene />
+        <Viewer @ref="View3D1" Camera=camera Scene=scene />
     </div>
 </div>
 
@@ -20,11 +20,13 @@
     private Viewer View3D1 = null!;
     private Scene scene = new Scene();
 
-    private Camera camera = new OrthographicCamera(left: -2, right: 2, top: 2, bottom: -2, zoom: 0.5)
+    private Camera camera = new OrthographicCamera(left: -2, right: 2, top: 2, bottom: -2, zoom: 0.5, near: -10)
         {
-            Position = new Vector3(3, 3, 3),
+            Position = new Vector3(1, 1, 1),
+            AnimateRotationSettings = new AnimateRotationSettings(true, 0.1, 0, 0.1, 2),
+            LookAt = new Vector3(0.5f, 0, 0)
         };
-   
+
     protected override Task OnInitializedAsync()
     {
         FillScene();
@@ -34,7 +36,7 @@
     private void FillScene()
     {
         scene.Add(new AmbientLight());
-        
+
         var capsule = new Mesh
             {
                 Geometry = new CapsuleGeometry(radius: 1, length: 2),
