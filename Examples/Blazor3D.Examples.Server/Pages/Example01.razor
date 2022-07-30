@@ -7,6 +7,8 @@
         <li>Add custom ViewerSettings</li>
         <li>Add user-defined scene</li>
         <li>Add user-defined lights and meshes with different geometries</li>
+        <li>Turn on/off objects selecting mode </li>
+        <li>Subscribe ObjectSelected event</li>
     </ul>
 </div>
 
@@ -15,17 +17,33 @@
         <Viewer @ref="View3D1" ViewerSettings=@settings Scene=scene />
     </div>
 </div>
+<div>@msg</div>
 
 
 @code {
     private Viewer View3D1 = null!;
     private Guid objGuid;
+    private string msg = string.Empty;
     private ViewerSettings settings = new ViewerSettings()
         {
             ContainerId = "example1",
+            CanSelect = true,// default is false
+            SelectedColor = "black"
         };
 
     private Scene scene = new Scene();
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // subscribe events only once
+            View3D1.ObjectSelected += OnObjectSelected;
+        }
+
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
     protected override Task OnInitializedAsync()
     {
         scene.Add(new AmbientLight());
@@ -170,5 +188,19 @@
                 }
             });
         return base.OnInitializedAsync();
+    }
+
+    private void OnObjectSelected(Object3DArgs e)
+    {
+        foreach (var item in scene.Children)
+        {
+            if (item.Uuid == e.UUID)
+            {
+                this.msg = $"Selected object with id = {e.UUID} and type {item.Type}";
+                StateHasChanged();
+                break;
+            }
+        }
+
     }
 }
