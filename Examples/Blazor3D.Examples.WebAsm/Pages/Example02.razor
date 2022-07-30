@@ -1,4 +1,5 @@
 ﻿@page "/example02"
+
 <h3>Example02</h3>
 
 <div>
@@ -6,7 +7,8 @@
     <ul>
         <li>Control the Blazor3D Viewer component's dimensions with CSS and HTML element style</li>
         <li>Add user-defined scene and lights</li>
-        <li>Import obj, Collada, Fbx, Gltf or Stl model on button click</li>
+        <li>Import obj, Collada, Fbx, Gltf or Stl model on button click asyncronously</li>
+        <li>Control loaded object by its uuid with ObjectLoaded event</li>
     </ul>
 </div>
 
@@ -22,11 +24,15 @@
         <p><button class="btn btn-primary" @onclick="OnLoadGltfButtonClick">Load Gltf</button> </p>
         <p><button class="btn btn-primary" @onclick="OnLoadStlButtonClick">Load Stl</button> </p>
     </div>
+    <div>@msg</div>
 </div>
 
 @code {
     private Viewer View3D1 = null!;
     private Scene scene = new Scene();
+    private Guid loadedObjectGuid = Guid.NewGuid();
+    private string msg = string.Empty;
+
     protected override Task OnInitializedAsync()
     {
         scene.Add(new AmbientLight());
@@ -39,64 +45,92 @@
         return base.OnInitializedAsync();
     }
 
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // subscribe events only once
+            View3D1.ObjectLoaded += OnObjectLoaded;
+        }
+
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
     private async Task OnLoadObjButtonClick()
     {
-        //load obj model asynchronously
+        // if you need to control the loaded object uuid, generate it here.
+        loadedObjectGuid = Guid.NewGuid();
         await View3D1.Import3DModelAsync(
             Import3DFormats.Obj,//choose appropriate format
             "https://threejs.org/examples/models/obj/male02/male02.obj", // link to your obj file
             "https://threejs.org/examples/textures/uv_grid_opengl.jpg", // link to the texture or null
-            500);// delay in ms before scene rendering to get things loaded. Default value 200.
+            loadedObjectGuid);// skip this, or set null if you don't care the uuid of loaded mesh or group
 
         // set camera position to view your loaded model
-        await View3D1.SetCameraPositionAsync(new Vector3(0, 100, 250));
+        await View3D1.SetCameraPositionAsync(
+            new Vector3(0, 100, 250),// camera position
+            new Vector3(0, 50, 0));// optional camera target
     }
 
     private async Task OnLoadObjNoTexturesButtonClick()
     {
-        await View3D1.Import3DModelAsync(
+        // Also you can get the uuid of object to be imported before its loaded completely
+        loadedObjectGuid = await View3D1.Import3DModelAsync(
             Import3DFormats.Obj,
             "https://threejs.org/examples/models/obj/male02/male02.obj",
-            null,
-            500);
-        await View3D1.SetCameraPositionAsync(new Vector3(0, 100, 250));
+            null);
+        await View3D1.SetCameraPositionAsync(new Vector3(0, 100, 250), new Vector3(0, 50, 0));
     }
 
     private async Task OnLoadColladaButtonClick()
     {
-        await View3D1.Import3DModelAsync(
+        loadedObjectGuid = await View3D1.Import3DModelAsync(
             Import3DFormats.Collada,
             "https://threejs.org/examples/models/collada/elf/elf.dae",
-            null,
-            500);
-        await View3D1.SetCameraPositionAsync(new Vector3(0, 5, 10));
+            null);
+        await View3D1.SetCameraPositionAsync(new Vector3(0, 5, 10), new Vector3(0, 3, 0));
     }
 
     private async Task OnLoadFbxButtonClick()
     {
-        await View3D1.Import3DModelAsync(
-      Import3DFormats.Fbx,
-      "https://threejs.org/examples/models/fbx/Samba%20Dancing.fbx",
-      null,
-      500);
-        await View3D1.SetCameraPositionAsync(new Vector3(0, 100, 250));
+        loadedObjectGuid = await View3D1.Import3DModelAsync(
+            Import3DFormats.Fbx,
+            "https://threejs.org/examples/models/fbx/Samba%20Dancing.fbx",
+            null);
+        await View3D1.SetCameraPositionAsync(new Vector3(0, 100, 250), new Vector3(0, 50, 0));
     }
 
     private async Task OnLoadGltfButtonClick()
     {
-        await View3D1.Import3DModelAsync(
-        Import3DFormats.Gltf,
-        "https://threejs.org/examples/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf",
-        null,
-        500);
-        await View3D1.SetCameraPositionAsync(new Vector3(0, 1, 5));
+        loadedObjectGuid = await View3D1.Import3DModelAsync(
+            Import3DFormats.Gltf,
+            "https://threejs.org/examples/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf",
+            null);
+        await View3D1.SetCameraPositionAsync(new Vector3(0, 1, 5), new Vector3(0, 0.5f, 0));
     }
     private async Task OnLoadStlButtonClick()
     {
         //todo: set custom material
-        await View3D1.Import3DModelAsync(
-        Import3DFormats.Stl,
-        "https://threejs.org/examples/models/stl/ascii/slotted_disk.stl", null);
-        await View3D1.SetCameraPositionAsync(new Vector3(0, 1, 1));
+        loadedObjectGuid = await View3D1.Import3DModelAsync(
+            Import3DFormats.Stl,
+            "https://threejs.org/examples/models/stl/ascii/slotted_disk.stl",
+            null);
+        await View3D1.SetCameraPositionAsync(new Vector3(0, 3, 3), new Vector3(0, 1, 0));
+    }
+
+    private Task OnObjectLoaded(Object3DArgs e)
+    {
+        // After object is loaded to component scene, you can locate it's C# clone in the scene.Children
+        // At the moment, only  Object3D.Uuid and Object3D.Type properties are syncronized.
+        foreach (var item in scene.Children)
+        {
+            if (item.Uuid == e.UUID)
+            {
+                this.msg = $"loaded object with id = {e.UUID} and type {item.Type}. Initial guid was {loadedObjectGuid}";
+                StateHasChanged();
+                break;
+            }
+        }
+        return Task.CompletedTask;
     }
 }
