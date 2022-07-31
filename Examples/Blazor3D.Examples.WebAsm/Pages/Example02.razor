@@ -23,7 +23,12 @@
         <p><button class="btn btn-primary" @onclick="OnLoadFbxButtonClick">Load Fbx</button> </p>
         <p><button class="btn btn-primary" @onclick="OnLoadGltfButtonClick">Load Gltf</button> </p>
         <p><button class="btn btn-primary" @onclick="OnLoadStlButtonClick">Load Stl</button> </p>
+        <hr />
+        <p><button class="btn btn-primary" @onclick="OnClearAllClick">Clear Scene</button> </p>
+        <p><button class="btn btn-primary" @onclick="OnDeleteLast">Delete Last</button> </p>
     </div>
+
+
     <div>@msg</div>
 </div>
 
@@ -132,5 +137,25 @@
             }
         }
         return Task.CompletedTask;
+    }
+
+
+    // this one clears scene completely. it removes all items: lights, helpers, meshes, etc.
+    private async Task OnClearAllClick()
+    {
+
+        await View3D1.ClearSceneAsync();
+    }
+
+    // this one removes last item in scene.Children collection. 
+    // notice, that first two items are lights
+    private async Task OnDeleteLast()
+    {
+        if (scene.Children.Count > 0)
+        {
+            var last = scene.Children.Last();
+            // removes item by its unique identifier
+            await View3D1.RemoveByUuidAsync(last.Uuid);
+        }
     }
 }
