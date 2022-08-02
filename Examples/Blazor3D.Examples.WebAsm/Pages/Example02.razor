@@ -1,4 +1,5 @@
 ﻿@page "/example02"
+@implements IDisposable
 
 <h3>Example02</h3>
 
@@ -9,6 +10,7 @@
         <li>Add user-defined scene and lights</li>
         <li>Import obj, Collada, Fbx, Gltf or Stl model on button click asyncronously</li>
         <li>Control loaded object by its uuid with ObjectLoaded event</li>
+        <li>Import file when all required JS modules already loaded (inital load)</li>
     </ul>
 </div>
 
@@ -28,7 +30,6 @@
         <p><button class="btn btn-primary" @onclick="OnDeleteLast">Delete Last</button> </p>
     </div>
 
-
     <div>@msg</div>
 </div>
 
@@ -37,6 +38,12 @@
     private Scene scene = new Scene();
     private Guid loadedObjectGuid = Guid.NewGuid();
     private string msg = string.Empty;
+
+    public void Dispose()
+    {
+        View3D1.ObjectLoaded -= OnObjectLoaded;
+        View3D1.JsModuleLoaded -= OnJsModuleLoaded;
+    }
 
     protected override Task OnInitializedAsync()
     {
@@ -56,9 +63,19 @@
         {
             // subscribe events only once
             View3D1.ObjectLoaded += OnObjectLoaded;
+            View3D1.JsModuleLoaded += OnJsModuleLoaded;
         }
 
         return base.OnAfterRenderAsync(firstRender);
+    }
+
+    private async Task OnJsModuleLoaded()
+    {
+        loadedObjectGuid = await View3D1.Import3DModelAsync(
+            Import3DFormats.Stl,
+            "https://threejs.org/examples/models/stl/ascii/slotted_disk.stl",
+            null);
+        await View3D1.SetCameraPositionAsync(new Vector3(0, 3, 3), new Vector3(0, 1, 0));
     }
 
     private async Task OnLoadObjButtonClick()
@@ -139,7 +156,6 @@
         return Task.CompletedTask;
     }
 
-
     // this one clears scene completely. it removes all items: lights, helpers, meshes, etc.
     private async Task OnClearAllClick()
     {
@@ -147,7 +163,7 @@
         await View3D1.ClearSceneAsync();
     }
 
-    // this one removes last item in scene.Children collection. 
+    // this one removes last item in scene.Children collection.
     // notice, that first two items are lights
     private async Task OnDeleteLast()
     {

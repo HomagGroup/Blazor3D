@@ -1,4 +1,6 @@
 ﻿@page "/example01"
+@implements IDisposable
+
 <h3>Example01</h3>
 <div>
     This example shows how to:
@@ -32,6 +34,11 @@
         };
 
     private Scene scene = new Scene();
+
+    public void Dispose()
+    {
+        View3D1.ObjectSelected -= OnObjectSelected;
+    }
 
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
@@ -89,7 +96,10 @@
                 Position = new Vector3(4, 0, 0),
                 Material = new MeshStandardMaterial()
                 {
-                    Color = "green"
+                    Color = "green",
+                    FlatShading = true,
+                    Metalness = 0.5f,
+                    Roughness = 0.5f
                 }
             });
 
@@ -99,7 +109,8 @@
                 Position = new Vector3(0, 0, -2),
                 Material = new MeshStandardMaterial()
                 {
-                    Color = "red"
+                    Color = "red",
+                    Wireframe = true
                 }
             });
         scene.Add(new Mesh
@@ -108,7 +119,9 @@
                 Position = new Vector3(-2, 0, -2),
                 Material = new MeshStandardMaterial()
                 {
-                    Color = "darkviolet"
+                    Color = "darkviolet",
+                    Metalness = 0.5f,
+                    Roughness = 0.5f
                 }
             });
 
@@ -201,6 +214,5 @@
                 break;
             }
         }
-
     }
 }
