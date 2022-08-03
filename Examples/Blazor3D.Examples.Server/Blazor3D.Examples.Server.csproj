@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blazor3D" Version="0.1.17" />
+    <PackageReference Include="Blazor3D" Version="0.1.18" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\assets\blazor3d.glb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

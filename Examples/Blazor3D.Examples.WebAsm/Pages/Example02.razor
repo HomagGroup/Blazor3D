@@ -53,10 +53,10 @@
                 Intensity = 0.5f,
                 Position = new Vector3(100, 200, 100)
             });
-        scene.Add(new PointLight()
+         scene.Add(new PointLight()
             {
                 Intensity = 1f,
-                Position = new Vector3(-100, 200, -100)
+                Position = new Vector3(5, 5, 5)
             });
 
         return base.OnInitializedAsync();
@@ -78,17 +78,11 @@
     {
         var settings = new ImportSettings
             {
-                Format = Import3DFormats.Stl,//choose appropriate format
-                FileURL = "https://threejs.org/examples/models/stl/ascii/slotted_disk.stl",// link to your model file
-                Material = new MeshStandardMaterial// apply your custom material if required (for now for stl only!)
-                {
-                    Color = "lightgrey",
-                    Roughness = 0.5f,
-                    Metalness = 0.5f
-                }
+                Format = Import3DFormats.Gltf,
+                FileURL = "/assets/blazor3d.glb",
             };
         loadedObjectGuid = await View3D1.Import3DModelAsync(settings);
-        await View3D1.SetCameraPositionAsync(new Vector3(0, 3, 3), new Vector3(0, 1, 0));
+        await View3D1.SetCameraPositionAsync(new Vector3(0, 0, 1), new Vector3(0, 0, 0));
     }
 
     private async Task OnLoadObjButtonClick()
