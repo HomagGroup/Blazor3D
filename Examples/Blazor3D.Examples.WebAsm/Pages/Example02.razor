@@ -97,7 +97,7 @@
         loadedObjectGuid = Guid.NewGuid();
         var settings = new ImportSettings
             {
-                Format = Import3DFormats.Stl,//choose appropriate format
+                Format = Import3DFormats.Obj,//choose appropriate format
                 FileURL = "https://threejs.org/examples/models/obj/male02/male02.obj",// link to your model file
                 TextureURL = "https://threejs.org/examples/textures/uv_grid_opengl.jpg", // link to the texture or skip this,
                 Uuid = loadedObjectGuid //// skip this, or set null if you don't care the uuid of loaded mesh or group
