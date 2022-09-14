@@ -30,7 +30,11 @@
         {
             ContainerId = "example1",
             CanSelect = true,// default is false
-            SelectedColor = "black"
+            SelectedColor = "black",
+            WebGLRendererSettings = new WebGLRendererSettings
+            {
+                Antialias = true
+            }
         };
 
     private Scene scene = new Scene();
