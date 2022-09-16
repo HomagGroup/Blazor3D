@@ -18,6 +18,7 @@
     </div>
     <div>
         <button @onclick="OnToggleCameraClick">Toggle Camera</button>
+        <button @onclick="OnShowCameraInfo" title="Print camera information to browser console">ShowCameraInfo</button>
     </div>
 </div>
 
@@ -26,7 +27,7 @@
     private Scene scene = new Scene();
     private bool toggler = false;
 
-    private Camera camera = new OrthographicCamera(left: -2, right: 2, top: 2, bottom: -2, near: -10)
+    private Camera camera = new OrthographicCamera(left: -2, right: 2, top: 2, bottom: -2, zoom: 0.5f, near: -10)
         {
             Position = new Vector3(1, 1, 1),
             AnimateRotationSettings = new AnimateRotationSettings(true, 0.1, 0, 0.1, radius: 3)
@@ -91,7 +92,7 @@
     {
         if (toggler == true)
         {
-            await View3D1.UpdateCamera(new OrthographicCamera(left: -2, right: 2, top: 2, bottom: -2, near: -10)
+            await View3D1.UpdateCamera(new OrthographicCamera(left: -2, right: 2, top: 2, bottom: -2, zoom: 0.5f, near: -10)
                 {
                     Position = new Vector3(1, 1, 1),
                     AnimateRotationSettings = new AnimateRotationSettings(true, 0.1, 0, 0.1, radius: 3)
@@ -110,5 +111,10 @@
                 });
         }
         toggler = !toggler;
+    }
+
+    private async Task OnShowCameraInfo()
+    {
+        await View3D1.ShowCurrentCameraInfo();
     }
 }

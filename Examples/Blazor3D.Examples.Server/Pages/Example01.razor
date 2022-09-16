@@ -33,7 +33,7 @@
             SelectedColor = "black",
             WebGLRendererSettings = new WebGLRendererSettings
             {
-                Antialias = true
+                Antialias = false // if you need poor quality for some reasons
             }
         };
 
@@ -197,7 +197,7 @@
             });
         scene.Add(new Mesh
             {
-                Geometry = new TorusKnotGeometry(radius:0.6f, tube: 0.1f),
+                Geometry = new TorusKnotGeometry(radius: 0.6f, tube: 0.1f),
                 Position = new Vector3(-4, 0, -4),
                 Material = new MeshStandardMaterial()
                 {
