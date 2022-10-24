@@ -47,19 +47,23 @@
 
     protected override Task OnInitializedAsync()
     {
+        AddLights();
+        return base.OnInitializedAsync();
+    }
+
+    private void AddLights()
+    {
         scene.Add(new AmbientLight());
         scene.Add(new PointLight()
             {
                 Intensity = 0.5f,
                 Position = new Vector3(100, 200, 100)
             });
-         scene.Add(new PointLight()
+        scene.Add(new PointLight()
             {
                 Intensity = 1f,
                 Position = new Vector3(5, 5, 5)
             });
-
-        return base.OnInitializedAsync();
     }
 
     protected override Task OnAfterRenderAsync(bool firstRender)
@@ -179,8 +183,9 @@
     // this one clears scene completely. it removes all items: lights, helpers, meshes, etc.
     private async Task OnClearAllClick()
     {
-
         await View3D1.ClearSceneAsync();
+        AddLights();
+        await View3D1.UpdateScene();
     }
 
     // this one removes last item in scene.Children collection.
