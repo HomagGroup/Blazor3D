@@ -115,17 +115,33 @@ See example [here](../main/Blazor3D.Examples.WebAsm/Pages/Example01.razor)
 ### Example01
 
 This example shows how to:
-<ul>
-    <li>Control the Blazor3D Viewer component's dimensions with CSS</li>
-    <li>Add custom ViewerSettings</li>
-    <li>Add user-defined scene, lights and meshes</li>
-</ul>
+    <ul>
+        <li>Control the Blazor3D Viewer component's dimensions with CSS</li>
+        <li>Add custom ViewerSettings</li>
+        <li>Add user-defined scene</li>
+        <li>Add user-defined lights and meshes with different geometries</li>
+        <li>Turn on/off objects selecting mode </li>
+        <li>Subscribe ObjectSelected event</li>
+    </ul>
 
 ### Example02
 
 This example shows how to:
-<ul>
-    <li>Control the Blazor3D Viewer component's dimensions with CSS and HTML element style</li>
-    <li>Add user-defined scene and lights</li>
-    <li>Import OBJ, Collada, FBX, GLTF models on button click</li>
-</ul>
+    <ul>
+        <li>Control the Blazor3D Viewer component's dimensions with CSS and HTML element style</li>
+        <li>Add user-defined scene and lights</li>
+        <li>Import obj, Collada, Fbx, Gltf or Stl model on button click asyncronously</li>
+        <li>Control loaded object by its uuid with ObjectLoaded event</li>
+        <li>Import file when all required JS modules already loaded (inital load)</li>
+    </ul>
+
+### Example03
+
+This example shows how to:
+    <ul>
+        <li>Control the Blazor3D Viewer component's dimensions with CSS</li>
+        <li>Use animated orthographic camera</li>
+        <li>Use helpers</li>
+        <li>Camera toggling</li>
+        <li>Stop camera animation on start using orbit control</li>
+    </ul>
