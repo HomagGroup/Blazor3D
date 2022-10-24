@@ -19,7 +19,7 @@ Or just download it from <https://www.nuget.org/packages/Blazor3D> and add it as
 ## Using
 
 ### With default scene
-See example [here](../main/Blazor3D.Examples.WebAsm/Pages/Index.razor)
+See example [here](../main/Examples/Blazor3D.Examples.WebAsm/Pages/Index.razor)
 
 1. Add usings to the _Imports.razor or to your page
  ```
@@ -31,7 +31,7 @@ See example [here](../main/Blazor3D.Examples.WebAsm/Pages/Index.razor)
 ```
 
 ### With custom scene
-See example [here](../main/Blazor3D.Examples.WebAsm/Pages/Example01.razor)
+See example [here](../main/Examples/Blazor3D.Examples.WebAsm/Pages/Example01.razor)
 
 1. Add usings to the _Imports.razor or to your page
  ```
