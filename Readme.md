@@ -145,3 +145,12 @@ This example shows how to:
         <li>Camera toggling</li>
         <li>Stop camera animation on start using orbit control</li>
     </ul>
+
+### Example03
+
+This example shows how to:
+    <ul>
+        <li>Add new cubes (or it can be any mech) with specified positions</li>
+        <li>Update selected cube (or any mech) position (in fact the complete scene is updated)</li>
+        <li>Delete selected cube (or any mech) from the scene</li>
+    </ul>

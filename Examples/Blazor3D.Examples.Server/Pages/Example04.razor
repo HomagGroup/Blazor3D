@@ -1,0 +1,171 @@
+﻿@page "/example04"
+@implements IDisposable
+
+
+<h3>Example04</h3>
+
+<div>
+    This example shows how to:
+    <ul>
+        <li>Add new cubes (or it can be any mech) with specified positions</li>
+        <li>Update selected cube (or any mech) position (in fact the complete scene is updated)</li>
+        <li>Delete selected cube (or any mech) from the scene</li>
+    </ul>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-6" style="height:500px;">
+        <Viewer @ref="View3D1" ViewerSettings=@settings Scene=scene />
+    </div>
+    <div class="col-2">
+        <p>
+            <label>X</label>
+            <input type="number" value="@xCoord" @onchange="@(e => xCoord = float.Parse(e.Value.ToString()))" />
+        </p>
+        <p>
+            <label>Y</label>
+            <input type="number" value="@yCoord" @onchange="@(e => yCoord = float.Parse(e.Value.ToString()))" />
+        </p>
+        <p>
+            <label>Z</label>
+            <input type="number" value="@zCoord" @onchange="@(e => zCoord = float.Parse(e.Value.ToString()))" />
+        </p>
+    </div>
+    <div class="col-4">
+        <p><button class="btn btn-primary" @onclick="OnCreateCubeButtonClick">Create cube</button></p>
+        <p><button class="btn btn-primary" @onclick="OnUpdateCubeButtonClick">Update selected cube position</button></p>
+        <p><button class="btn btn-primary" @onclick="OnDeleteSelected">Delete selected cube</button></p>
+    </div>
+    <div>@msg</div>
+</div>
+
+
+@code {
+    private Viewer View3D1 = null!;
+    private Scene scene = new Scene();
+    private Guid lastSelectedGuid;
+    private Guid lastCubeGuid;
+    private string msg = string.Empty;
+
+    private float xCoord { get; set; }
+    private float yCoord { get; set; }
+    private float zCoord { get; set; }
+
+    private ViewerSettings settings = new ViewerSettings()
+        {
+            CanSelect = true,
+            CanSelectHelpers = false
+        };
+
+
+    protected override Task OnInitializedAsync()
+    {
+        AddLights();
+        return base.OnInitializedAsync();
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            View3D1.ObjectSelected += OnObjectSelected;
+        }
+
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+    private void AddLights()
+    {
+        scene.Add(new AmbientLight());
+        scene.Add(new PointLight()
+            {
+                Intensity = 0.5f,
+                Position = new Vector3(100, 200, 100)
+            });
+        scene.Add(new PointLight()
+            {
+                Intensity = 1f,
+                Position = new Vector3(5, 5, 5)
+            });
+    }
+    private async Task OnClearAllClick()
+    {
+        await View3D1.ClearSceneAsync();
+        AddLights();
+        await View3D1.UpdateScene();
+    }
+
+    private async Task OnClearLast()
+    {
+        if (scene.Children.Count == 0)
+        {
+            return;
+        }
+        var last = scene.Children.Last();
+        await View3D1.RemoveByUuidAsync(last.Uuid);
+    }
+
+    private void OnObjectSelected(Object3DArgs e)
+    {
+        lastSelectedGuid = e.UUID;
+    }
+
+    private async Task OnCreateCubeButtonClick()
+    {
+        var mesh = new Mesh
+            {
+                Geometry = new BoxGeometry(),
+                Position = new Vector3(xCoord, yCoord, zCoord)
+            };
+
+        scene.Add(mesh);
+        await View3D1.UpdateScene();
+        lastCubeGuid = mesh.Uuid;
+        msg = $"created new cube with id = {lastCubeGuid}";
+        StateHasChanged();
+        lastCubeGuid = Guid.Empty;
+    }
+
+    private async Task OnUpdateCubeButtonClick()
+    {
+        var selected = scene.Children.Find(x => x.Uuid == lastSelectedGuid);
+        if (selected == null)
+        {
+            msg = $"nothing selected yet";
+            StateHasChanged();
+            return;
+        }
+
+        if (selected is Mesh)
+        {
+            var mesh = selected as Mesh;
+            mesh.Position = new Vector3(xCoord, yCoord, zCoord);
+        }
+
+        await View3D1.UpdateScene();
+        msg = $"updated cube with id = {selected.Uuid}";
+        StateHasChanged();
+        lastCubeGuid = Guid.Empty;
+    }
+
+    private async Task OnDeleteSelected()
+    {
+        var selected = scene.Children.Find(x => x.Uuid == lastSelectedGuid);
+        if (selected == null)
+        {
+            msg = $"nothing selected yet";
+            StateHasChanged();
+            return;
+        }
+        await View3D1.RemoveByUuidAsync(selected.Uuid);
+
+        msg = $"deleted cube with id = {lastSelectedGuid}";
+        StateHasChanged();
+        lastCubeGuid = Guid.Empty;
+    }
+
+    public void Dispose()
+    {
+        View3D1.ObjectSelected -= OnObjectSelected;
+    }
+}
