@@ -146,11 +146,20 @@ This example shows how to:
         <li>Stop camera animation on start using orbit control</li>
     </ul>
 
-### Example03
+### Example04
 
 This example shows how to:
     <ul>
         <li>Add new cubes (or it can be any mech) with specified positions</li>
         <li>Update selected cube (or any mech) position (in fact the complete scene is updated)</li>
         <li>Delete selected cube (or any mech) from the scene</li>
+    </ul>
+
+### Example05
+
+This example shows how to:
+    <ul>
+        <li>Load a bitmap texture to the mesh using URL</li>
+        <li>Use different wrapping types</li>
+        <li>Use texture repeating, offset and rotation</li>
     </ul>

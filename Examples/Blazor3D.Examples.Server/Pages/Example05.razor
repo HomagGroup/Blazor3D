@@ -1,0 +1,138 @@
+﻿@page "/example05"
+@using Blazor3D.Textures;
+
+<h3>Example05</h3>
+
+<div>
+    This example shows how to:
+    <ul>
+        <li>Load a bitmap texture to the mesh using URL</li>
+        <li>Use different wrapping types</li>
+        <li>Use texture repeating, offset and rotation</li>
+    </ul>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-6 v3d">
+        <Viewer @ref="View3D1" Scene=scene />
+    </div>
+</div>
+
+@code {
+    private Viewer View3D1 = null!;
+
+    private Scene scene = new Scene();
+
+
+    protected override Task OnInitializedAsync()
+    {
+        scene.Add(new AmbientLight());
+        scene.Add(new PointLight()
+            {
+                Position = new Vector3(1, 3, 0)
+            });
+
+        scene.Add(new Mesh
+            {
+                Geometry = new BoxGeometry(),
+                Position = new Vector3(-2, 0, -2),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "white",
+                    Map = CreateTexture("/textures/uv_grid_opengl.jpg")
+                }
+            });
+
+        scene.Add(new Mesh
+            {
+                Geometry = new BoxGeometry(),
+                Position = new Vector3(0, 0, -2),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "lightgreen",
+                    Map = CreateTexture(
+                        "/textures/uv_grid_opengl.jpg",
+                        WrappingType.MirroredRepeatWrapping,
+                        WrappingType.MirroredRepeatWrapping,
+                        new Vector2(4, 4),
+                        null,
+                        (float)Math.PI/4
+                    )
+                }
+            });
+
+        scene.Add(new Mesh
+            {
+                Geometry = new BoxGeometry(),
+                Position = new Vector3(2, 0, -2),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "orange",
+                    Map = CreateTexture(
+                       "/textures/uv_grid_opengl.jpg",
+                       WrappingType.RepeatWrapping,
+                       WrappingType.RepeatWrapping,
+                       new Vector2(2, 2),
+                       new Vector2(0.25f, 0.25f)
+                   )
+                }
+            });
+
+        scene.Add(new Mesh
+            {
+                Geometry = new SphereGeometry(radius: 0.6f),
+                Position = new Vector3(-2, 0, 0),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "white",
+                    Map = CreateTexture("/textures/uv_grid_opengl.jpg")
+                },
+            });
+
+        scene.Add(new Mesh
+            {
+                Geometry = new TorusGeometry(radius: 0.5f, tube: 0.3f, radialSegments: 12, tubularSegments: 12),
+                Position = new Vector3(0, 0, 0),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "white",
+                    Map = CreateTexture("/textures/uv_grid_opengl.jpg")
+                }
+            });
+
+        scene.Add(new Mesh
+            {
+                Geometry = new OctahedronGeometry(radius: 0.75f),
+                Position = new Vector3(2, 0, 0),
+                Material = new MeshStandardMaterial()
+                {
+                    Color = "white",
+                    Map = CreateTexture("/textures/uv_grid_opengl.jpg")
+                }
+            });
+
+        return base.OnInitializedAsync();
+    }
+
+    private Texture CreateTexture(
+        string url,
+        WrappingType wraps = WrappingType.ClampToEdgeWrapping,
+        WrappingType wrapt = WrappingType.ClampToEdgeWrapping,
+        Vector2? repeat = null,
+        Vector2? offset = null,
+        float? rotation = null)
+    {
+        var texture = new Texture()
+            {
+                TextureUrl = url,
+                WrapS = wraps,
+                WrapT = wrapt
+            };
+
+        texture.Repeat = repeat == null ? texture.Repeat : repeat;
+        texture.Offset = offset == null ? texture.Offset : offset;
+        texture.Rotation = !rotation.HasValue ? texture.Rotation : rotation.Value;
+
+        return texture;
+    }
+}
