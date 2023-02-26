@@ -1,0 +1,11 @@
+/*!
+ * Copyright © 2022 Roman Simuta aka siroman
+ * Copyright © 2010-2021 three.js authors https://threejs.org/
+ */
+
+/*!
+fflate - fast JavaScript compression/decompression
+<https://101arrowz.github.io/fflate>
+Licensed under MIT. https://github.com/101arrowz/fflate/blob/master/LICENSE
+version 0.6.9
+*/
