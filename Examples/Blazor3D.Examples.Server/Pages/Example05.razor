@@ -56,7 +56,7 @@
                         WrappingType.MirroredRepeatWrapping,
                         new Vector2(4, 4),
                         null,
-                        (float)Math.PI/4
+                        Math.PI/4
                     )
                 }
             });
@@ -120,7 +120,7 @@
         WrappingType wrapt = WrappingType.ClampToEdgeWrapping,
         Vector2? repeat = null,
         Vector2? offset = null,
-        float? rotation = null)
+        double? rotation = null)
     {
         var texture = new Texture()
             {

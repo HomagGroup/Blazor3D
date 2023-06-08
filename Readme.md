@@ -107,7 +107,7 @@ See example [here](../main/Examples/Blazor3D.Examples.WebAsm/Pages/Example01.raz
                         ,
                 Rotation = new Euler
                 {
-                    X = (float)(Math.PI / 4)
+                    X = Math.PI / 4
                 }
             });
 

@@ -11,12 +11,16 @@
         <li>Add user-defined lights and meshes with different geometries</li>
         <li>Turn on/off objects selecting mode </li>
         <li>Subscribe ObjectSelected event</li>
+        <li>Select object by its UUID</li>
     </ul>
 </div>
 
 <div class="row justify-content-center">
     <div class="col-6 v3d">
         <Viewer @ref="View3D1" ViewerSettings=@settings Scene=scene />
+    </div>
+    <div class="col-5">
+        <input type="text" @bind="selectObjectGuid"></input> <button @onclick="OnSelectObjectByUUIDClick">Select object</button>
     </div>
 </div>
 <div>@msg</div>
@@ -38,6 +42,8 @@
         };
 
     private Scene scene = new Scene();
+
+    private Guid? selectObjectGuid = null;
 
     public void Dispose()
     {
@@ -218,5 +224,14 @@
                 break;
             }
         }
+    }
+
+    private async Task OnSelectObjectByUUIDClick()
+    {
+        if (selectObjectGuid.HasValue)
+        {
+            await View3D1.SelectByUuidAsync(selectObjectGuid.Value);
+        }
+
     }
 }
