@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blazor3D" Version="0.1.26" />
+    <PackageReference Include="Blazor3D" Version="0.1.28" />
   </ItemGroup>
 
   <ItemGroup>

@@ -10,6 +10,7 @@
         <li>Add custom ViewerSettings</li>
         <li>Add user-defined scene</li>
         <li>Add user-defined lights and meshes with different geometries</li>
+        <li>Add meshes to the group</li>
         <li>Turn on/off objects selecting mode </li>
         <li>Subscribe ObjectSelected event</li>
         <li>Select object by its UUID</li>
@@ -223,6 +224,12 @@
 
         // Mimic ThreeJS approach to add shape verticies.
         // For now only MoveTo and LineTo available.
+
+        var group = new Group()
+            {
+                Position = new Vector3 { Z = 2 },
+            };
+
         var shape = new Shape();
         shape.MoveTo(0, 0.25);
         shape.LineTo(0.5, 0.5);
@@ -231,10 +238,10 @@
         shape.LineTo(-0.75, 0);
         shape.LineTo(-0.5, 0.5);
 
-        scene.Add(new Mesh
+        group.Add(new Mesh
             {
                 Geometry = new ShapeGeometry(shape),
-                Position = new Vector3() { X = -1, Y = -1, Z = 2 },
+                Position = new Vector3() { X = -1, Y = -1 },
                 Material = new MeshStandardMaterial()
                 {
                     Color = "DarkRed"
@@ -262,15 +269,17 @@
                 BevelEnabled = false
             };
 
-        scene.Add(new Mesh
+        group.Add(new Mesh
             {
                 Geometry = new ExtrudeGeometry(shape, options),
-                Position = new Vector3() { X = 1, Y = -1, Z = 2 },
+                Position = new Vector3() { X = 1, Y = -1 },
                 Material = new MeshStandardMaterial()
                 {
                     Color = "Red"
                 }
             });
+
+        scene.Add(group);
     }
 
     private void OnObjectSelected(Object3DArgs e)
