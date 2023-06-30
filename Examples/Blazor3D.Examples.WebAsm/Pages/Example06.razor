@@ -6,9 +6,9 @@
 <div>
     This example shows how to:
     <ul>
-        <li>Load a bitmap texture to the mesh using URL</li>
-        <li>Use different wrapping types</li>
-        <li>Use texture repeating, offset and rotation</li>
+        <li>Add text object with extruded geometry</li>
+        <li>Add text object with shaped geometry</li>
+        <li>Add text object with stroke geometry</li>
     </ul>
 </div>
 
@@ -53,7 +53,7 @@
                 },
                 Geometry = new TextExtrudeGeometry
                 {
-                    FontURL = "fonts/helvetiker_regular.typeface.json",
+                    FontURL = "https://threejs.org/examples/fonts/helvetiker_regular.typeface.json",
                     Size = 1,
                     Height = 0.1,
                 }
@@ -69,7 +69,7 @@
                 },
                 Geometry = new TextExtrudeGeometry
                 {
-                    FontURL = "fonts/helvetiker_regular.typeface.json",
+                    FontURL = "https://threejs.org/examples/fonts/helvetiker_regular.typeface.json",
                     Size = 1,
                     Height = 0.5,
                     BevelEnabled = true,
@@ -89,7 +89,7 @@
                 },
                 Geometry = new TextShapeGeometry
                 {
-                    FontURL = "fonts/helvetiker_regular.typeface.json",
+                    FontURL = "https://threejs.org/examples/fonts/helvetiker_regular.typeface.json",
                     Size = 1,
                 },
                 Position = new Vector3(0, 0, 1)
@@ -104,7 +104,7 @@
                 },
                 Geometry = new TextStrokeGeometry
                 {
-                    FontURL = "fonts/helvetiker_regular.typeface.json",
+                    FontURL = "https://threejs.org/examples/fonts/helvetiker_regular.typeface.json",
                     Size = 1,
                     StrokeWidth = 0.05
                 },
@@ -113,5 +113,5 @@
         scene.Add(text);
 
     }
-   
+
 }
