@@ -1,0 +1,117 @@
+﻿@page "/example06"
+@using Blazor3D.Geometires.Text;
+
+<h3>Example06</h3>
+
+<div>
+    This example shows how to:
+    <ul>
+        <li>Add text object with extruded geometry</li>
+        <li>Add text object with shaped geometry</li>
+        <li>Add text object with stroke geometry</li>
+    </ul>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-6 v3d">
+        <Viewer @ref="View3D1" Scene=scene />
+    </div>
+</div>
+
+@code {
+    private Viewer View3D1 = null!;
+
+    private Scene scene = new Scene();
+
+
+    protected override Task OnInitializedAsync()
+    {
+        AddLights();
+        FillScene();
+        return base.OnInitializedAsync();
+    }
+
+    private void AddLights()
+    {
+        scene.Add(new AmbientLight());
+        var plight = new PointLight()
+            {
+                //Color = "red",
+                Decay = 2,
+                Position = new Vector3(1, 5, 0)
+            };
+        scene.Add(plight);
+        scene.Add(new PointLightHelper(plight, 0.5));
+    }
+    private void FillScene()
+    {
+        var text = new Text
+            {
+                Material = new MeshStandardMaterial
+                {
+                    Color = "red",
+                },
+                Geometry = new TextExtrudeGeometry
+                {
+                    FontURL = "https://threejs.org/examples/fonts/helvetiker_regular.typeface.json",
+                    Size = 1,
+                    Height = 0.1,
+                }
+            };
+
+        scene.Add(text);
+
+        text = new Text
+            {
+                Material = new MeshStandardMaterial
+                {
+                    Color = "blue",
+                },
+                Geometry = new TextExtrudeGeometry
+                {
+                    FontURL = "https://threejs.org/examples/fonts/helvetiker_regular.typeface.json",
+                    Size = 1,
+                    Height = 0.5,
+                    BevelEnabled = true,
+                    BevelSegments = 2,
+                    BevelSize = 0.05,
+                    BevelThickness = 0.1
+                },
+                Position = new Vector3(0, 0, -1)
+            };
+        scene.Add(text);
+
+        text = new Text
+            {
+                Material = new MeshStandardMaterial
+                {
+                    Color = "violet",
+                },
+                Geometry = new TextShapeGeometry
+                {
+                    FontURL = "https://threejs.org/examples/fonts/helvetiker_regular.typeface.json",
+                    Size = 1,
+                },
+                Position = new Vector3(0, 0, 1)
+            };
+        scene.Add(text);
+
+        text = new Text
+            {
+                Material = new MeshStandardMaterial
+                {
+                    Color = "violet",
+                },
+                Geometry = new TextStrokeGeometry
+                {
+                    FontURL = "https://threejs.org/examples/fonts/helvetiker_regular.typeface.json",
+                    Size = 1,
+                    StrokeWidth = 0.05
+                },
+                Position = new Vector3(0, 0, 2)
+            };
+        scene.Add(text);
+
+    }
+   
+}
