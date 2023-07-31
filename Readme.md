@@ -19,7 +19,7 @@ This repository contains examples of using the Blazor3D Viewercomponent in the [
 
 If you want to find more tutorials, API Reference Guide etc., please, visit project webpage at [https://blazor3d.com](https://blazor3d.com) (for now it's on pause)
 
-Live preview of these examples WebAsm versionj you can see at  [https://simutaroman.github.io/Blazor3D/](https://simutaroman.github.io/Blazor3D/) 
+Live preview of these examples WebAsm versionj you can see at  [https://homaggroup.github.io/Blazor3D/](https://homaggroup.github.io/Blazor3D/) 
 
 ## Installing
 
