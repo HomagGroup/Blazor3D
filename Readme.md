@@ -8,7 +8,7 @@ Because of the war in Ukraine and often power outages in my city, I don't have m
 So, I decided to open its source code to the community.
 I hope it will be valuable for you.
 
-You can find the source code in my other [Blazor3D-Core repository](https://github.com/simutaroman/Blazor3D-Core).
+You can find the source code in my other [Blazor3D-Core repository](https://github.com/HomagGroup/Blazor3D-Core).
 
 It still requires documentation to do, but for those who never read the docs it's OK :)
 
@@ -17,9 +17,9 @@ Glory to Ukraine! Glory to the Heroes!
 ## Overview
 This repository contains examples of using the Blazor3D Viewercomponent in the [ASP.NET Core Blazor](https://docs.microsoft.com/en-us/aspnet/core/blazor/) applications.
 
-If you want to find more tutorials, API Reference Guide etc., please, visit project webpage at [https://blazor3d.com](https://blazor3d.com) (for now it's on pause)
+[comment]: <> If you want to find more tutorials, API Reference Guide etc., please, visit project webpage at [https://blazor3d.com](https://blazor3d.com) (for now it's on pause)
 
-Live preview of these examples WebAsm versionj you can see at  [https://simutaroman.github.io/Blazor3D/](https://simutaroman.github.io/Blazor3D/) 
+[comment]: <> Live preview of these examples WebAsm versionj you can see at  [https://simutaroman.github.io/Blazor3D/](https://simutaroman.github.io/Blazor3D/) 
 
 ## Installing
 
