@@ -33,7 +33,7 @@ See example [here](../main/Examples/Blazor3D.Examples.WebAsm/Pages/Index.razor)
 
 1. Add usings to the _Imports.razor or to your page
  ```
-@using Blazor3D.Viewers
+@using HomagGroup.Blazor3D.Viewers
 ```
 2. Put Blazor3D Viewer component to your page
  ```
@@ -45,14 +45,14 @@ See example [here](../main/Examples/Blazor3D.Examples.WebAsm/Pages/Example01.raz
 
 1. Add usings to the _Imports.razor or to your page
  ```
-@using Blazor3D.Settings
-@using Blazor3D.Scenes
-@using Blazor3D.Lights
-@using Blazor3D.Maths
-@using Blazor3D.Materials
-@using Blazor3D.Objects
-@using Blazor3D.Geometires
-@using Blazor3D.Enums
+@using HomagGroup.Blazor3D.Settings
+@using HomagGroup.Blazor3D.Scenes
+@using HomagGroup.Blazor3D.Lights
+@using HomagGroup.Blazor3D.Maths
+@using HomagGroup.Blazor3D.Materials
+@using HomagGroup.Blazor3D.Objects
+@using HomagGroup.Blazor3D.Geometires
+@using HomagGroup.Blazor3D.Enums
 ```
 2. Put the View3D component to you blazor application page and add some code
 ```
