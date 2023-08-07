@@ -1,14 +1,15 @@
 # Blazor3D
 ![Blazor3D](../main/Assets/Blazor3D.jpg)
 
-## Making opensource
+## Source code
 
 You can find the source code in the [Blazor3D-Core repository](https://github.com/HomagGroup/Blazor3D-Core).
 
-It still requires documentation to do, but for those who never read the docs it's OK :)
-
 ## Overview
-This repository contains examples of using the Blazor3D Viewercomponent in the [ASP.NET Core Blazor](https://docs.microsoft.com/en-us/aspnet/core/blazor/) applications.
+This repository contains examples of using the Blazor3D Viewer component in the [ASP.NET Core Blazor](https://docs.microsoft.com/en-us/aspnet/core/blazor/) applications.
+
+## Braking changes
+Since package version v0.1.39 the Blazor3D package root namespace changed from Blazor3D to HomagGroup.Blazor3D
 
 ## Live preview
 
