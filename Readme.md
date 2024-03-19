@@ -8,7 +8,7 @@ You can find the source code in the [Blazor3D-Core repository](https://github.co
 ## Overview
 This repository contains examples of using the Blazor3D Viewer component in the [ASP.NET Core Blazor](https://docs.microsoft.com/en-us/aspnet/core/blazor/) applications.
 
-## Braking changes
+## Breaking changes
 Since package version v0.1.39 the Blazor3D package root namespace changed from Blazor3D to HomagGroup.Blazor3D
 
 ## Live preview
